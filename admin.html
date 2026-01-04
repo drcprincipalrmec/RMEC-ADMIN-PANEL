@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R.M Engineering College - Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Password Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-box">
+                <h1><i class="fas fa-user-shield"></i> Admin Login</h1>
+                <p>Enter password to access Admin Panel</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="adminPassword">
+                            <i class="fas fa-lock"></i> Password:
+                        </label>
+                        <input type="password" id="adminPassword" placeholder="Enter admin password" required autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <div id="loginError" class="error-message hidden"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Content (Hidden until login) -->
+    <div id="adminContent" class="admin-container hidden">
+        <header class="admin-header">
+            <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
+            <div class="admin-header-actions">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Form
+                </a>
+                <button class="btn btn-secondary" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div class="admin-section">
+                <h2><i class="fas fa-calendar-alt"></i> Daily Database Report</h2>
+                <div class="report-controls">
+                    <label for="reportDate">Select Date:</label>
+                    <input type="date" id="reportDate">
+                    <button class="btn btn-primary" id="generateReport">
+                        <i class="fas fa-file-alt"></i> Generate Report
+                    </button>
+                </div>
+                <div id="dailyReport" class="report-display"></div>
+            </div>
+
+            <div class="admin-section">
+                <h2><i class="fas fa-list"></i> All Admissions</h2>
+                <div class="table-controls">
+                    <button class="btn btn-success" id="refreshData">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="admissionsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>School</th>
+                                <th>Mobile</th>
+                                <th>Place</th>
+                                <th>Maths</th>
+                                <th>Physics</th>
+                                <th>Chemistry</th>
+                                <th>Gender</th>
+                                <th>Community</th>
+                                <th>First Graduate</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admissionsTableBody">
+                            <tr>
+                                <td colspan="13" class="no-data">No admissions found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h2><i class="fas fa-cog"></i> Manage Menu</h2>
+                <p class="info-text">Menu management options will be available here.</p>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Edit Admission</h2>
+                <form id="editForm">
+                    <input type="hidden" id="editId">
+                    <div class="form-group">
+                        <label>NAME:</label>
+                        <input type="text" id="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>SCHOOL:</label>
+                        <input type="text" id="editSchool" required>
+                    </div>
+                    <div class="form-group">
+                        <label>MOBILE No:</label>
+                        <input type="tel" id="editMobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PLACE:</label>
+                        <input type="text" id="editPlace" required>
+                    </div>
+                    <div class="form-group">
+                        <label>MATHS:</label>
+                        <input type="number" id="editMaths" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PHYSICS:</label>
+                        <input type="number" id="editPhysics" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CHEMISTRY:</label>
+                        <input type="number" id="editChemistry" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>GENDER:</label>
+                        <select id="editGender" required>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>COMMUNITY:</label>
+                        <select id="editCommunity" required>
+                            <option value="BC">BC</option>
+                            <option value="MBC">MBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>FIRST GRADUATE:</label>
+                        <select id="editFirstGraduate" required>
+                            <option value="YES">YES</option>
+                            <option value="NO">NO</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
